@@ -1,4 +1,4 @@
-## Group-project-1
+## Outdoor Adventures
 
 # As outdoor adventuers, we want to go out in nature
 # So we will want to what times of the year would be best dependent on geographical location/activity/weather during said time of year
