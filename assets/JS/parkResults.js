@@ -1,3 +1,4 @@
+const opWeatherKey = "ef52a053126f1ffad0042182f7e8f385"
 const npsKey = "9fi4OHLPohhQm2w4RcbNkl8tPu6xMiqljmISBjp6"
 const parkUrl = 'https://developer.nps.gov/api/v1/parks?stateCode=CA'
 const passUrl = "https://developer.nps.gov/api/v1/feespasses?statecode=CA"
