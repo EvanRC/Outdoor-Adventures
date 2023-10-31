@@ -30,13 +30,13 @@ function fetchParkNames() {
 
         // Create the card
         const parkCard = document.createElement('div');
-          parkCard.className = 'col s12 m6 l4';
+          parkCard.className = 'col s12 m6 l2';
           parkCard.innerHTML = `
-            <div class="card">
+            <div class="card large hero">
               <div class="card-image waves-effect waves-block waves-light">
                 <img class="activator" src="${imageUrl}">
               </div>
-              <div class="card-content">
+              <div class="card-content transparent">
                 <span class="card-title activator grey-text text-darken-4">${park.fullName}<i class="meduim material-icons right">add</i></span>
               </div>
               <div class="card-reveal">
