@@ -1,3 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* css reset */
+}
+
+.cstm-design {
+    padding-bottom: 10rem;
+    background-color: forestgreen;
+    margin-bottom: ;
+}
+
+#head-logo {
+    font-size: 4rem;
+    color: brown;
+}
+
+.nav-links li a {
+    font-size: 2rem;
+    color:  blanchedalmond;
+}
+
+
 .card-content {
     background-color: transparent;
 }
