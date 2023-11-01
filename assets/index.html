@@ -1,70 +1,178 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+<hmtl lang="en">
 
-    <link
-      rel="stylesheet"
-      href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
-    />
-    <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-    <title>Outdoor Adventures</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+
+  <title>
+    <blockquote>
+      </block>Outdoor Adventures</blockquote>
+  </title>
   </head>
+
   <body>
-    <div class="bg-info text-light px-4 py-5 mb-5">
-      <div class="container text-center">
-        <h1>Outdoor Adventures</h1>
-      </div>
-    </div>
     <div class="container">
       <div class="row">
-        <div class="col-6">
-          <h3>Pick an Activity</h3>
-          <form id="activity-list">
-            <div class="row py-3">
-              <label for="activity" class="col-sm-4 col-form-label"
-                >Activity Name:
-              </label>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" id="activity-name" />
+        <div class="col s12">
+          <h1>outdoor adventures</h1>
+          <div class="row">
+            <div class="col s12 m7">
+              <div class="card">
+                <div class="card-image">
+                  <img src="images/sample-1.jpg">
+                  <span class="card-title">Card Title</span>
+                </div>
+                <div class="card-content">
+                  <p>I am a very simple card. I am good at containing small bits of information.
+                    I am convenient because I require little markup to use effectively.</p>
+                </div>
+                <div class="card-action">
+                  <a href="#">All PARKS</a>
+                </div>
               </div>
             </div>
-            <div class="row py-3">
-              <label for="date" class="col-sm-4 col-form-label">Date: </label>
-              <div class="col-sm-8">
-                <input
-                  type="text"
-                  class="form-control"
-                  id="datepicker"
-                  autocomplete="off"
-                />
-              </div>
-            </div>
-            <div class="py-3">
-              <button type="search" value="search" class="btn btn-info">
-                Search
-              </button>
-            </div>
-          </form>
-        </div>
-        <div class="col-6">
-          <h3>List of Activities:</h3>
-          <div class="py-3">
-            <ul class="list-group" id="activity-list"></ul>
           </div>
         </div>
       </div>
-    </div>
+      <div class="input-field col s12">
+        <select>
+          <option value="" disabled selected>Choose your option</option>
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        </select>
+        <label></label>
+      </div>
 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="./assets/js/script.js"></script>
+      <div class="input-field col s12">
+        <select multiple>
+          <option value="" disabled selected>Choose your option</option>
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        </select>
+        <label></label>
+      </div>
+
+      <div class="input-field col s12">
+        <select>
+          <optgroup label="team 1">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+          </optgroup>
+          <optgroup label="team 2">
+            <option value="3">Option 3</option>
+            <option value="4">Option 4</option>
+          </optgroup>
+        </select>
+        <label></label>
+      </div>
+      <label>California Parks</label>
+      <select class="browser-default">
+        <option value="" disabled selected>Choose your option</option>
+        <option value="1">Alcatraz Island</option>
+        <option value="2">Carbrillo National Monument</option>
+        <option value="3">Castle Mountains National Monument</option>
+        <option value="4">Cesar E. Chavez National Monument</option>
+        <option value="5">Channel Islands National Park</option>
+        <option value="6">Death Valley National Park</option>
+        <option value="7">Devils Postpile National Monument</option>
+        <option value="8">Eugene O'Neill National Historic Site</option>
+        <option value="9">Fort Point National Historic Site</option>
+        <option value="10">Goglden Gate National Recreation Area</option>
+        <option value="11">John Muir National Historic Site</option>
+        <option value="12">Joshua Tree National Park</option>
+        <option value="13">Juan Bautista De Anza National Historic Trail</option>
+        <option value="14">Lassen Volcanic National Park</option>
+        <option value="15">Lava Beds National Monument</option>
+        <option value="16">Manzanar National Historic Site</option>
+        <option value="17">Mojave National Perserve</option>
+        <option value="18">Muir Woods National Monument</option>
+        <option value="19">Pinnacles National Park</option>
+        <option value="20">Point Reyes National Seashore</option>
+        <option value="21">Port Chicago Naval Magazine National Mermorial</option>
+        <option value="22">Redwood National and State Parks</option>
+        <option value="23">Rosie the Riveter WWII Home Front National Historic Park</option>
+        <option value="24">San Francisco Maritime National Historic Park</option>
+        <option value="25">Santa Monica Mountains National Recreation Area</option>
+        <option value="26">Sequoia and Kings Canyon National Parks</option>
+        <option value="27">Tule Lake National Monument</option>
+        <option value="28">Whiskeytown National Recreation Area</option>
+        <option value="39">Yosemite National Park</option>
+
+      </select>
+
+      <div class="input-field col s12">
+        <select multiple>
+          <option value="" disabled selected>Choose your option</option>
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        </select>
+        <label></label>
+      </div>
+
+      <div class="input-field col s12">
+        <select>
+          <optgroup label="team 1">
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+          </optgroup>
+          <optgroup label="team 2">
+            <option value="3">Option 3</option>
+            <option value="4">Option 4</option>
+          </optgroup>
+        </select>
+        <label></label>
+      </div>
+
+      <div class="input-field col s12 m6">
+        <select class="icons">
+          <option value="" disabled selected>Choose your option</option>
+          <option value="" data-icon=""></option>
+          <option value="" data-icon=""></option>
+          <option value="" data-icon=""></option>
+        </select>
+        <label></label>
+      </div>
+      <div class="input-field col s12 m6">
+        <select class="icons">
+          <option value="" disabled selected>Choose your option</option>
+          <option value="" data-icon="images/sample-1.jpg" class="left">example 1</option>
+          <option value="" data-icon="images/office.jpg" class="left">example 2</option>
+          <option value="" data-icon="images/yuna.jpg" class="left">example 3</option>
+        </select>
+        <label></label>
+      </div>
+
+      <label>Choose Activity</label>
+      <select class="browser-default">
+        <option value="" disabled selected>Choose your option</option>
+        <option value="1">Astronomy</option>
+        <option value="2">Biking</option>
+        <option value="3">Boating</option>
+        <option value="4">Camping</option>
+        <option value="5">Climbing</option>
+        <option value="6">Fishing</option>
+        <option value="7">Hiking</option>
+        <option value="8">Horseback Riding</option>
+        <option value="9">Skiing</option>
+        <option value="10">Wildlife Watching</option>
+
+      </select>
+
+      <button class="btn waves-effect waves-light" type="Submit" name="action">Search
+        <i class="material-icons right">search</i>
+      </button>
   </body>
-</html>
+
+  </html>
