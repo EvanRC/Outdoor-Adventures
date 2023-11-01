@@ -1,16 +1,16 @@
-const opWeatherKey = "ef52a053126f1ffad0042182f7e8f385"
-const npsKey = "9fi4OHLPohhQm2w4RcbNkl8tPu6xMiqljmISBjp6"
-const parkUrl = 'https://developer.nps.gov/api/v1/parks?stateCode=CA'
-const passUrl = "https://developer.nps.gov/api/v1/feespasses?statecode=CA"
-const calBtn = document.getElementById("dropbtn")
-const parkList = document.getElementById("parkList")
-const parkDetails = document.getElementById('parkDetails')
-const passesList = document.getElementById("passesList")
-const cardContainer = document.getElementById("cardContainer")
+const opWeatherKey = "ef52a053126f1ffad0042182f7e8f385";
+const npsKey = "9fi4OHLPohhQm2w4RcbNkl8tPu6xMiqljmISBjp6";
+const parkUrl = 'https://developer.nps.gov/api/v1/parks?stateCode=CA';
+const passUrl = "https://developer.nps.gov/api/v1/feespasses?statecode=CA";
+const searchBtn = document.getElementById("searchBtn");
+const parkList = document.getElementById("parkList");
+const parkDetails = document.getElementById('parkDetails');
+const passesList = document.getElementById("passesList");
+const cardContainer = document.getElementById("cardContainer");
 
 function fetchParkNames() {
   parkList.innerHTML = '';
-  
+
   fetch(parkUrl, {
     headers: {
       'X-Api-Key': npsKey
@@ -30,41 +30,36 @@ function fetchParkNames() {
 
         // Create the card
         const parkCard = document.createElement('div');
-          parkCard.className = 'col s12 m6 l2';
-          parkCard.innerHTML = `
-            <div class="card large hero">
-              <div class="card-image waves-effect waves-block waves-light">
-                <img class="activator" src="${imageUrl}">
+        parkCard.className = 'col s12 m6 l2';
+        parkCard.innerHTML = `
+          <div class="card large hero">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="${imageUrl}">
+            </div>
+            <div class="card-content transparent">
+              <span class="card-title activator grey-text text-darken-4">${park.fullName}<i class="meduim material-icons right">add</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">${park.fullName}<i class="material-icons right">close</i></span>
+              <div class="card-tabs">
+                <ul class="tabs tabs-fixed-width">
+                  <li class="tab"><a href="#desc">Description</a></li>
+                  <li class="tab"><a class="active" href="#weather">Weather</a></li>
+                  <li class="tab"><a href="#links">Park Links</a></li>
+                </ul>
               </div>
-              <div class="card-content transparent">
-                <span class="card-title activator grey-text text-darken-4">${park.fullName}<i class="meduim material-icons right">add</i></span>
-              </div>
-              <div class="card-reveal">
-                  <span class="card-title grey-text text-darken-4">${park.fullName}<i class="material-icons right">close</i></span>
-                  <div class="card-tabs">
-                    <ul class="tabs tabs-fixed-width">
-                      <li class="tab"><a href="#desc">Description</a></li>
-                      <li class="tab"><a class="active" href="#weather">Weather</a></li>
-                      <li class="tab"><a href="#links">Park Links</a></li>
-                    </ul>
-                  </div>
-                  <div class="card-content grey lighten-4">
-                    <div id="desc" style="display: block;"><p>${park.description}</p></div>
-                    <div id="weather" style="display: none;">${park.weatherInfo}</div>
-                    <ul id="links" style="display: none;">
-                        <li><strong>Official Website:</strong> <a href="${park.url}" target="_blank">${park.url}</a></li>
-                        <li><strong>Directions:</strong> <a href="${park.directionsUrl}" target="_blank">${park.directionsUrl}</a></li>
-                      </ul>
-      
-                    </div>
-
-                  </div>
-                </div>
+              <div class="card-content grey lighten-4">
+                <div id="desc" style="display: block;"><p>${park.description}</p></div>
+                <div id="weather" style="display: none;">${park.weatherInfo}</div>
+                <ul id="links" style="display: none;">
+                  <li><strong>Official Website:</strong> <a href="${park.url}" target="_blank">${park.url}</a></li>
+                  <li><strong>Directions:</strong> <a href="${park.directionsUrl}" target="_blank">${park.directionsUrl}</a></li>
+                </ul>
               </div>
             </div>
-          `;
-  
-        
+          </div>
+        `;
+
         const cardTitle = parkCard.querySelector('.card-title.activator');
         const cardReveal = parkCard.querySelector('.card-reveal');
         cardTitle.addEventListener('click', () => {
@@ -98,7 +93,9 @@ function fetchParkNames() {
     });
 }
 
-
+document.addEventListener('DOMContentLoaded', function() {
+  fetchParkNames();
+});
 
 function buildFeeInfoHTML(entranceFees) {
   if (!entranceFees || entranceFees.length === 0) {
@@ -118,9 +115,9 @@ function buildFeeInfoHTML(entranceFees) {
   return feeInfoHTML;
 } 
 
-calBtn.addEventListener('click', fetchParkNames)
+searchBtn.addEventListener('click', fetchParkNames)
 
-document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.dropdown-trigger');
-  var instances = M.Dropdown.init(elems, options);
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//   var elems = document.querySelectorAll('.dropdown-trigger');
+//   var instances = M.Dropdown.init(elems, options);
+// });
