@@ -7,8 +7,12 @@ const parkList = document.getElementById("parkList");
 const parkDetails = document.getElementById('parkDetails');
 const passesList = document.getElementById("passesList");
 const cardContainer = document.getElementById("cardContainer");
+const refreshBtn = document.getElementById("refreshBtn")
+
 
 function fetchParkNames() {
+  const selectedActivity = document.getElementById("activity").value
+  console.log("Selected Activity:", selectedActivity)
   parkList.innerHTML = '';
 
   fetch(parkUrl, {
@@ -25,12 +29,14 @@ function fetchParkNames() {
     .then(data => {
       console.log(data);
       data.data.forEach(park => {
+        if (selectedActivity === '' || park.activities.some(activities => activities.name === selectedActivity)) {
         const parkName = park.fullName;
         const imageUrl = park.images.length > 0 ? park.images[0].url : 'images/sample-1.jpg';
 
         // Create the card
         const parkCard = document.createElement('div');
-        parkCard.className = 'col s12 m6 l2';
+        parkCard.className = 'col s12 m6 l4';
+        const parkLocation = findCityAndState(park.addresses);
         parkCard.innerHTML = `
           <div class="card large hero">
             <div class="card-image waves-effect waves-block waves-light">
@@ -38,6 +44,7 @@ function fetchParkNames() {
             </div>
             <div class="card-content transparent">
               <span class="card-title activator grey-text text-darken-4">${park.fullName}<i class="meduim material-icons right">add</i></span>
+              <p class="park-location">${parkLocation}</p>
             </div>
             <div class="card-reveal">
               <span class="card-title grey-text text-darken-4">${park.fullName}<i class="material-icons right">close</i></span>
@@ -59,6 +66,19 @@ function fetchParkNames() {
             </div>
           </div>
         `;
+
+        function findCityAndState(addresses) {
+          if (Array.isArray(addresses)) {
+            for (const address of addresses) {
+              if (address.type === "Physical") { // You might need to adjust the type
+                const city = address.city;
+                const state = address.stateCode;
+                return `${city}, ${state}`;
+              }
+            }
+          }
+          return "Location not available";
+        }
 
         const cardTitle = parkCard.querySelector('.card-title.activator');
         const cardReveal = parkCard.querySelector('.card-reveal');
@@ -86,11 +106,13 @@ function fetchParkNames() {
         parkCard.querySelector('#links').style.display = 'none';
 
         parkList.appendChild(parkCard);
+      }
       });
     })
     .catch(error => {
       console.error('There was a problem with the fetch operation:', error);
     });
+  
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -116,6 +138,10 @@ function buildFeeInfoHTML(entranceFees) {
 } 
 
 searchBtn.addEventListener('click', fetchParkNames)
+
+refreshBtn.addEventListener("click", function() {
+  location.reload()
+})
 
 // document.addEventListener('DOMContentLoaded', function() {
 //   var elems = document.querySelectorAll('.dropdown-trigger');
