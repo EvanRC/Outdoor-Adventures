@@ -85,10 +85,12 @@ function fetchParkNames() {
               <div class="card-content green lighten-3">
                 <div id="desc" style="display: block;"><p>${park.description}</p></div>
                 <div id="weather-info" style="display: none;"><span class="weather-info-placeholder">Loading the weather...</span></div>
-                <ul id="links" style="display: none;">
-                  <li><strong>Official Website:</strong> <a href="${park.url}" target="_blank">${park.url}</a></li>
-                  <li><strong>Directions:</strong> <a href="${park.directionsUrl}" target="_blank">${park.directionsUrl}</a></li>
-                </ul>
+                <div id="links" style="display: none;">
+                  <ul>
+                    <li><strong>Official Website:</strong> <a href="${park.url}" target="_blank">${park.url}</a></li>
+                    <li><strong>Directions:</strong> <a href="${park.directionsUrl}" target="_blank">${park.directionsUrl}</a></li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
