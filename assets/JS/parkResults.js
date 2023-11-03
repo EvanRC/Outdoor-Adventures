@@ -8,6 +8,7 @@ const parkDetails = document.getElementById('parkDetails');
 const passesList = document.getElementById("passesList");
 const cardContainer = document.getElementById("cardContainer");
 const refreshBtn = document.getElementById("refreshBtn")
+const backToTopBtn = document.getElementById("topBtn")
 
 function fetchWeatherInfo(lat, lon, callback) {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${opWeatherKey}&units=imperial`;
@@ -56,7 +57,7 @@ function fetchParkNames() {
       data.data.forEach(park => {
         if (selectedActivity === '' || park.activities.some(activities => activities.name === selectedActivity)) {
         const parkName = park.fullName;
-        const imageUrl = park.images.length > 0 ? park.images[0].url : 'images/sample-1.jpg';
+        const imageUrl = park.images.length > 0 ? park.images[0].url : 'assets/butterfield.jpg';
 
         // Create the card
         const parkCard = document.createElement('div');
@@ -64,7 +65,7 @@ function fetchParkNames() {
         const parkLocation = findCityAndState(park.addresses);
        
         parkCard.innerHTML = `
-          <div class="card large hero">
+          <div class="card large z-depth-4">
             <div class="card-image waves-effect waves-block waves-light">
               <img class="activator" src="${imageUrl}">
             </div>
@@ -72,16 +73,16 @@ function fetchParkNames() {
               <span class="card-title activator grey-text text-darken-4">${park.fullName}<i class="meduim material-icons right">add</i></span>
               <p class="park-location">${parkLocation}</p>
             </div>
-            <div class="card-reveal">
+            <div class="card-reveal green lighten-4">
               <span class="card-title grey-text text-darken-4">${park.fullName}<i class="material-icons right">close</i></span>
               <div class="card-tabs">
-                <ul class="tabs tabs-fixed-width">
+                <ul class="tabs tabs-fixed-width green lighten-2">
                   <li class="tab"><a href="#desc">Description</a></li>
                   <li class="tab"><a class="active" href="#weather-info">Weather</a></li>
                   <li class="tab"><a href="#links">Park Links</a></li>
                 </ul>
               </div>
-              <div class="card-content grey lighten-4">
+              <div class="card-content green lighten-3">
                 <div id="desc" style="display: block;"><p>${park.description}</p></div>
                 <div id="weather-info" style="display: none;"><span class="weather-info-placeholder">Loading the weather...</span></div>
                 <ul id="links" style="display: none;">
@@ -185,9 +186,9 @@ refreshBtn.addEventListener("click", function() {
 })
 
 
-
-
-// document.addEventListener('DOMContentLoaded', function() {
-//   var elems = document.querySelectorAll('.dropdown-trigger');
-//   var instances = M.Dropdown.init(elems, options);
-// });
+backToTopBtn.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  })
+})

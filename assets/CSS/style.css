@@ -5,10 +5,10 @@
     /* css reset */
 }
 
+
 .cstm-design {
     padding-bottom: 10rem;
-    background-color: forestgreen;
-    margin-bottom: ;
+    background-image: linear-gradient(green, white);
 }
 
 #head-logo {
@@ -24,4 +24,34 @@
 
 .card-content {
     background-color: transparent;
+}
+
+.btn {
+    margin-left: 2%;
+    margin-bottom: 1%;
+}
+
+select {
+    margin: 2%;
+    width: 30%;
+}
+
+label {
+    margin-left: 2%;
+}
+
+footer {
+    text-align: center;
+}
+
+.tabs .tab a {
+    color: black;
+}
+
+.tabs .tab a:hover {
+    color: rgb(83, 83, 83);
+}
+
+.brand-logo {
+    margin: 3%;
 }
