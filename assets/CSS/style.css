@@ -1,4 +1,23 @@
-* {
+* 
+  .carousel-item h3 {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+   }
+
+
+
+
+
+
+
+
+
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
