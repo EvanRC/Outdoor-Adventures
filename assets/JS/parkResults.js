@@ -10,6 +10,31 @@ const cardContainer = document.getElementById("cardContainer");
 const refreshBtn = document.getElementById("refreshBtn")
 const backToTopBtn = document.getElementById("topBtn")
 
+function fetchWeatherInfo(lat, lon, callback) {
+  const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${opWeatherKey}&units=imperial`;
+  fetch(weatherUrl)
+  .then(response => response.json())
+  .then(data => {
+    if (data && data.main && data.weather) {
+      const temperature = data.main.temp;
+      const description = data.weather[0].description;
+      const iconCode = data.weather[0].icon;
+      const iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
+      const formattedWeatherInfo = `
+      Temperature: ${temperature}°F <br>
+      Condition: ${description} <br>
+      <img src="${iconUrl}" alt="${description} icon">`;
+
+      callback(null, formattedWeatherInfo);
+    } else {
+      callback("No weather information available currently");
+    }
+  })
+  .catch(error => {
+    callback(error);
+  });
+}
+
 
 function fetchParkNames() {
   const selectedActivity = document.getElementById("activity").value
@@ -38,6 +63,7 @@ function fetchParkNames() {
         const parkCard = document.createElement('div');
         parkCard.className = 'col s12 m6 l4';
         const parkLocation = findCityAndState(park.addresses);
+       
         parkCard.innerHTML = `
           <div class="card large z-depth-4">
             <div class="card-image waves-effect waves-block waves-light">
@@ -52,13 +78,13 @@ function fetchParkNames() {
               <div class="card-tabs">
                 <ul class="tabs tabs-fixed-width green lighten-2">
                   <li class="tab"><a href="#desc">Description</a></li>
-                  <li class="tab"><a href="#weather">Weather</a></li>
+                  <li class="tab"><a class="active" href="#weather-info">Weather</a></li>
                   <li class="tab"><a href="#links">Park Links</a></li>
                 </ul>
               </div>
               <div class="card-content green lighten-3">
                 <div id="desc" style="display: block;"><p>${park.description}</p></div>
-                <div id="weather" style="display: none;">${park.weatherInfo}</div>
+                <div id="weather-info" style="display: none;"><span class="weather-info-placeholder">Loading the weather...</span></div>
                 <ul id="links" style="display: none;">
                   <li><strong>Official Website:</strong> <a href="${park.url}" target="_blank">${park.url}</a></li>
                   <li><strong>Directions:</strong> <a href="${park.directionsUrl}" target="_blank">${park.directionsUrl}</a></li>
@@ -68,25 +94,26 @@ function fetchParkNames() {
           </div>
         `;
 
-        function findCityAndState(addresses) {
-          if (Array.isArray(addresses)) {
-            for (const address of addresses) {
-              if (address.type === "Physical") { // You might need to adjust the type
-                const city = address.city;
-                const state = address.stateCode;
-                return `${city}, ${state}`;
-              }
+        const lat = park.latitude;
+        const lon = park.longitude;
+        fetchWeatherInfo(lat, lon, (error, weatherInfo) => {
+          if (error) {
+            console.error('Failed to fetch the weather:', error);
+          } else {
+            const weatherDiv =  parkCard.querySelector('.weather-info-placeholder');
+            if (weatherDiv) {
+              weatherDiv.innerHTML = weatherInfo;
             }
           }
-          return "Location not available";
-        }
+        });
+
+       
 
         const cardTitle = parkCard.querySelector('.card-title.activator');
         const cardReveal = parkCard.querySelector('.card-reveal');
         cardTitle.addEventListener('click', () => {
           cardReveal.style.display = 'block';
-          parkCard.querySelector('#weather').style.display = 'none';
-          parkCard.querySelector('#passes').style.display = 'none';
+          
         });
 
         const tabLinks = parkCard.querySelectorAll('.card-tabs a');
@@ -103,16 +130,30 @@ function fetchParkNames() {
         });
 
         // Hide weather and passes tabs initially
-        parkCard.querySelector('#weather').style.display = 'none';
+        parkCard.querySelector('#weather-info').style.display = 'none';
         parkCard.querySelector('#links').style.display = 'none';
 
         parkList.appendChild(parkCard);
       }
       });
     })
+    
     .catch(error => {
       console.error('There was a problem with the fetch operation:', error);
     });
+
+    function findCityAndState(addresses) {
+      if (Array.isArray(addresses)) {
+        for (const address of addresses) {
+          if (address.type === "Physical") { // You might need to adjust the type
+            const city = address.city;
+            const state = address.stateCode;
+            return `${city}, ${state}`;
+          }
+        }
+      }
+      return "Location not available";
+    }
   
 }
 
@@ -143,6 +184,7 @@ searchBtn.addEventListener('click', fetchParkNames)
 refreshBtn.addEventListener("click", function() {
   location.reload()
 })
+
 
 backToTopBtn.addEventListener("click", () => {
   window.scrollTo({
