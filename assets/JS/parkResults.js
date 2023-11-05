@@ -10,6 +10,26 @@ const cardContainer = document.getElementById("cardContainer");
 const refreshBtn = document.getElementById("refreshBtn")
 const backToTopBtn = document.getElementById("topBtn")
 
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.carousel');
+    var options = {
+      fullWidth: true, // Makes the carousel full width
+      indicators: true, // Show slide indicators (optional)
+    };
+    var instances = M.Carousel.init(elems, options);
+
+    // Auto slide change every 3 seconds
+    var interval = setInterval(function () {
+      var instance = M.Carousel.getInstance(elems[0]);
+      instance.next(); // Move to the next slide
+    }, 10000);
+  });
+
+ M.AutoInit();
+
+
 function fetchWeatherAndForecast(lat, lon, callback) {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${opWeatherKey}&units=imperial`;
   const foreCastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${opWeatherKey}&units=imperial`;
