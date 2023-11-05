@@ -10,30 +10,64 @@ const cardContainer = document.getElementById("cardContainer");
 const refreshBtn = document.getElementById("refreshBtn")
 const backToTopBtn = document.getElementById("topBtn")
 
-function fetchWeatherInfo(lat, lon, callback) {
+function fetchWeatherAndForecast(lat, lon, callback) {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${opWeatherKey}&units=imperial`;
+  const foreCastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${opWeatherKey}&units=imperial`;
   fetch(weatherUrl)
   .then(response => response.json())
-  .then(data => {
-    if (data && data.main && data.weather) {
-      const temperature = data.main.temp;
-      const description = data.weather[0].description;
-      const iconCode = data.weather[0].icon;
+  .then(weatherData => {
+    if (weatherData && weatherData.main && weatherData.weather) {
+      const temperature = weatherData.main.temp;
+      const description = weatherData.weather[0].description;
+      const iconCode = weatherData.weather[0].icon;
       const iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
+     
       const formattedWeatherInfo = `
-      Temperature: ${temperature}°F <br>
-      Condition: ${description} <br>
-      <img src="${iconUrl}" alt="${description} icon">`;
+      <strong> Today:</strong> <br>
+      Temperature: ${temperature}°F, 
+      Condition: ${description} <img src="${iconUrl}" alt="${description} icon">`;
 
-      callback(null, formattedWeatherInfo);
+      return Promise.all([fetch(foreCastUrl), formattedWeatherInfo]);
+
     } else {
-      callback("No weather information available currently");
+      throw new Error("No weather forecast information available currently");
     }
-  })
-  .catch(error => {
-    callback(error);
-  });
+})
+.then(([forecastResponse, formattedWeatherInfo]) => {
+return forecastResponse.json().then(forecastData => {
+  let forecastHTML = '<br><strong>5-day Forecast:</strong><br>';
+
+  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  if (forecastData && forecastData.list) {
+    for (let i = 0; i < forecastData.list.length; i += 8) {
+      const dayData = forecastData.list[i];
+      const dayTemp = dayData.main.temp;
+      const dayDescription = dayData.weather[0].description;
+      const dayIconCode = dayData.weather[0].icon; 
+      const dayIconUrl = `https://openweathermap.org/img/w/${dayIconCode}.png`; // Use HTTPS
+
+      const forecastDate = new Date(dayData.dt * 1000);
+
+      const dayOfWeek = daysOfWeek[forecastDate.getDay()];
+
+      forecastHTML += `
+     <strong>${dayOfWeek}:</strong>&nbsp;&nbsp;
+      Temperature: ${dayTemp}°F, Conditions: ${dayDescription} <img src="${dayIconUrl}" alt="${dayDescription} icon"><br>`;
+    }
+  }
+
+  // Assuming 'formattedWeatherInfo' is defined in an outer scope and accessible here
+  const combinedWeatherInfo = formattedWeatherInfo + forecastHTML;
+  callback(null, combinedWeatherInfo); // Make the callback with the result
+});
+})
+.catch(error => {
+  callback(error); // Make sure to pass the error to the callback
+});
+
 }
+
 
 
 function fetchParkNames() {
@@ -73,10 +107,10 @@ function fetchParkNames() {
               <span class="card-title activator grey-text text-darken-4">${park.fullName}<i class="meduim material-icons right">add</i></span>
               <p class="park-location">${parkLocation}</p>
             </div>
-            <div class="card-reveal green lighten-4">
+            <div class="card-reveal green lighten-4 info-text">
               <span class="card-title grey-text text-darken-4">${park.fullName}<i class="material-icons right">close</i></span>
               <div class="card-tabs">
-                <ul class="tabs tabs-fixed-width green lighten-2">
+                <ul class="tabs tabs-fixed-width green lighten-2 ">
                   <li class="tab"><a href="#desc">Description</a></li>
                   <li class="tab"><a class="active" href="#weather-info">Weather</a></li>
                   <li class="tab"><a href="#links">Park Links</a></li>
@@ -98,7 +132,7 @@ function fetchParkNames() {
 
         const lat = park.latitude;
         const lon = park.longitude;
-        fetchWeatherInfo(lat, lon, (error, weatherInfo) => {
+        fetchWeatherAndForecast(lat, lon, (error, weatherInfo) => {
           if (error) {
             console.error('Failed to fetch the weather:', error);
           } else {

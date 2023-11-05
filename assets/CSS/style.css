@@ -48,10 +48,16 @@ footer {
     color: black;
 }
 
+
 .tabs .tab a:hover {
     color: rgb(83, 83, 83);
 }
 
 .brand-logo {
     margin: 3%;
+}
+
+.info-text {
+    
+  overflow-y: auto;
 }
