@@ -15,57 +15,55 @@
    }
 
 .cstm-design {
-    padding-bottom: 10rem;
-    background-image: linear-gradient(green, white);
+  padding-bottom: 10rem;
+  background-image: linear-gradient(green, white);
 }
 
 #head-logo {
-    font-size: 4rem;
-    color: brown;
+  font-size: 4rem;
+  color: brown;
 }
 
 .nav-links li a {
-    font-size: 2rem;
-    color:  blanchedalmond;
+  font-size: 2rem;
+  color: blanchedalmond;
 }
 
-
 .card-content {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .btn {
-    margin-left: 2%;
-    margin-bottom: 1%;
+  margin-left: 2%;
+  margin-bottom: 1%;
+}
+
+.activity-chooser {
+  margin-left: 2%;
 }
 
 select {
-    margin: 2%;
-    width: 30%;
-}
-
-label {
-    margin-left: 2%;
+  margin: 2%;
+  width: 30%;
 }
 
 footer {
-    text-align: center;
+  text-align: center;
 }
 
 .tabs .tab a {
-    color: black;
+  color: black;
 }
 
 
 .tabs .tab a:hover {
-    color: rgb(83, 83, 83);
+  color: rgb(83, 83, 83);
 }
 
 .brand-logo {
-    margin: 3%;
+  margin: 3%;
 }
 
-.info-text {
-    
-  overflow-y: auto;
+.input-field {
+  margin-top: 25%;
 }
