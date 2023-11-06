@@ -1,4 +1,4 @@
-const opWeatherKey = 'ef52a053126f1ffad0042182f7e8f385'
+const opWeatherKey = "ef52a053126f1ffad0042182f7e8f385"
 const npsKey = '9fi4OHLPohhQm2w4RcbNkl8tPu6xMiqljmISBjp6'
 const parkUrl = 'https://developer.nps.gov/api/v1/parks?stateCode=CA'
 const passUrl = 'https://developer.nps.gov/api/v1/feespasses?statecode=CA'
@@ -18,71 +18,71 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   var instances = M.Carousel.init(elems, options)
 
-    // Auto slide change every 3 seconds
-    var interval = setInterval(function () {
-      var instance = M.Carousel.getInstance(elems[0]);
-      instance.next(); // Move to the next slide
-    }, 10000);
-  });
+  // Auto slide change every 3 seconds
+  var interval = setInterval(function () {
+    var instance = M.Carousel.getInstance(elems[0]);
+    instance.next(); // Move to the next slide
+  }, 10000);
+});
 
- M.AutoInit();
+M.AutoInit();
 
 
 function fetchWeatherAndForecast(lat, lon, callback) {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${opWeatherKey}&units=imperial`;
   const foreCastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${opWeatherKey}&units=imperial`;
   fetch(weatherUrl)
-  .then(response => response.json())
-  .then(weatherData => {
-    if (weatherData && weatherData.main && weatherData.weather) {
-      const temperature = weatherData.main.temp;
-      const description = weatherData.weather[0].description;
-      const iconCode = weatherData.weather[0].icon;
-      const iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
-     
-      const formattedWeatherInfo = `
+    .then(response => response.json())
+    .then(weatherData => {
+      if (weatherData && weatherData.main && weatherData.weather) {
+        const temperature = weatherData.main.temp;
+        const description = weatherData.weather[0].description;
+        const iconCode = weatherData.weather[0].icon;
+        const iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
+
+        const formattedWeatherInfo = `
       <strong> Today:</strong> <br>
       Temperature: ${temperature}°F, 
       Condition: ${description} <img src="${iconUrl}" alt="${description} icon">`;
 
-      return Promise.all([fetch(foreCastUrl), formattedWeatherInfo]);
+        return Promise.all([fetch(foreCastUrl), formattedWeatherInfo]);
 
-    } else {
-      throw new Error("No weather forecast information available currently");
-    }
-})
-.then(([forecastResponse, formattedWeatherInfo]) => {
-return forecastResponse.json().then(forecastData => {
-  let forecastHTML = '<br><strong>5-day Forecast:</strong><br>';
+      } else {
+        throw new Error("No weather forecast information available currently");
+      }
+    })
+    .then(([forecastResponse, formattedWeatherInfo]) => {
+      return forecastResponse.json().then(forecastData => {
+        let forecastHTML = '<br><strong>5-day Forecast:</strong><br>';
 
-  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  if (forecastData && forecastData.list) {
-    for (let i = 0; i < forecastData.list.length; i += 8) {
-      const dayData = forecastData.list[i];
-      const dayTemp = dayData.main.temp;
-      const dayDescription = dayData.weather[0].description;
-      const dayIconCode = dayData.weather[0].icon; 
-      const dayIconUrl = `https://openweathermap.org/img/w/${dayIconCode}.png`; // Use HTTPS
+        if (forecastData && forecastData.list) {
+          for (let i = 0; i < forecastData.list.length; i += 8) {
+            const dayData = forecastData.list[i];
+            const dayTemp = dayData.main.temp;
+            const dayDescription = dayData.weather[0].description;
+            const dayIconCode = dayData.weather[0].icon;
+            const dayIconUrl = `https://openweathermap.org/img/w/${dayIconCode}.png`; // Use HTTPS
 
-      const forecastDate = new Date(dayData.dt * 1000);
+            const forecastDate = new Date(dayData.dt * 1000);
 
-      const dayOfWeek = daysOfWeek[forecastDate.getDay()];
+            const dayOfWeek = daysOfWeek[forecastDate.getDay()];
 
-      forecastHTML += `
+            forecastHTML += `
      <strong>${dayOfWeek}:</strong>&nbsp;&nbsp;
       Temperature: ${dayTemp}°F, Conditions: ${dayDescription} <img src="${dayIconUrl}" alt="${dayDescription} icon"><br>`;
-    }
-  }
+          }
+        }
 
-  // Assuming 'formattedWeatherInfo' is defined in an outer scope and accessible here
-  const combinedWeatherInfo = formattedWeatherInfo + forecastHTML;
-  callback(null, combinedWeatherInfo); // Make the callback with the result
-});
-})
-.catch(error => {
-  callback(error); // Make sure to pass the error to the callback
-});
+        // Assuming 'formattedWeatherInfo' is defined in an outer scope and accessible here
+        const combinedWeatherInfo = formattedWeatherInfo + forecastHTML;
+        callback(null, combinedWeatherInfo); // Make the callback with the result
+      });
+    })
+    .catch(error => {
+      callback(error); // Make sure to pass the error to the callback
+    });
 
 }
 
@@ -151,19 +151,19 @@ function buildCards(filteredParkList) {
           </div>
         `
 
-        const lat = park.latitude;
-        const lon = park.longitude;
-        fetchWeatherAndForecast(lat, lon, (error, weatherInfo) => {
-          if (error) {
-            console.error('Failed to fetch the weather:', error);
-          } else {
-            const weatherDiv =  parkCard.querySelector('.weather-info-placeholder');
-            if (weatherDiv) {
-              weatherDiv.innerHTML = weatherInfo;
-            }
+      const lat = park.latitude;
+      const lon = park.longitude;
+      fetchWeatherAndForecast(lat, lon, (error, weatherInfo) => {
+        if (error) {
+          console.error('Failed to fetch the weather:', error);
+        } else {
+          const weatherDiv = parkCard.querySelector('.weather-info-placeholder');
+          if (weatherDiv) {
+            weatherDiv.innerHTML = weatherInfo;
           }
-        })
-      
+        }
+      })
+
 
       const cardTitle = parkCard.querySelector('.card-title.activator')
       const cardReveal = parkCard.querySelector('.card-reveal')
@@ -267,9 +267,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
   var a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(lat1 * (Math.PI / 180)) *
-      Math.cos(lat2 * (Math.PI / 180)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2)
+    Math.cos(lat2 * (Math.PI / 180)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2)
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
   var distance = R * c
   return distance
