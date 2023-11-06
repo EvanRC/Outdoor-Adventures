@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <hmtl lang="en">
+ 
   <head>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@clayui/css/lib/css/atlas.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> -->
+  <link rel="stylesheet" href="assets/CSS/style.css">
+ 
+  <head>
+    <title>Outdoor Adventures</title>
   <link href="https://fonts.googleapis.com/css2?family=Karla&family=Lobster&family=Playfair+Display&family=Roboto:ital@1&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -27,47 +33,95 @@
       <h3 id="back-logo">OUTDOOR ADVENTURES</h3>
     </div>
 
+    <!-- location search box -->
 
-
-
-      <label>Choose Activity</label>
-      <select id="activity" class="browser-default">
-        <option value="" disabled selected>Choose your option</option>
-        <option value="Astronomy">Astronomy</option>
-        <option value="Biking">Biking</option>
-        <option value="Boating">Boating</option>
-        <option value="Camping">Camping</option>
-        <option value="Climbing">Climbing</option>
-        <option value="Fishing">Fishing</option>
-        <option value="Hiking">Hiking</option>
-        <option value="Horseback Riding">Horseback Riding</option>
-        <option value="Skiing">Skiing</option>
-        <option value="Wildlife Watching">Wildlife Watching</option>
-        <option value="">All Activities</option>
-
-      </select>
-      <div id="btnContainer" class="center-align">
-        <button id="searchBtn" class="btn waves-effect waves-light" type="Submit" name="action">Search
-          <i class="material-icons right">search</i>
-        </button>
-        <button id="refreshBtn" class="btn waves-effect waves-light" type="Submit" name="action">Clear Filters
-          <i class="material-icons right">close</i>
-        </button>
-      </div>
+    <div class="container">
       <div class="row">
-        <div id="parkList">
-          
+        <div class="col s12 m3 offset-m4 valign-wrapper">
+          <div class="input-field">
+            <input placeholder="Enter City or Zip Code" id="find_parks" type="text" class="validate">
+            <label for="find_parks">Find Parks</label>
+          </div>
+        </div>
+        <div class="col s12 m3">
+          <label class="center-align">Distance in Miles</label>
+          <form class="vertical-radio-buttons" action="#">
+            <p>
+              <label>
+                <input name="group1" type="radio" class="with-gap" value="50" id="radio-50-miles">
+                <span>50</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="group1" type="radio" class="with-gap" value="100" id="radio-100-miles">
+                <span>100</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="group1" type="radio" class="with-gap" value="500" id="radio-500-miles">
+                <span>500</span>
+              </label>
+            </p>
+            <p>
+              <label>
+                <input name="group1" type="radio" class="with-gap" value="1000" id="radio-1000-miles">
+                <span>1000</span>
+              </label>
+            </p>
+          </form>
         </div>
       </div>
-      <button id="topBtn" class="btn waves-effect waves-light" type="Submit" name="action">Back to Top
-        <i class="material-icons right">arrow_upward</i>
+    </div>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col s12 m6 offset-m3 center-align">
+          <label class="activity-chooser">Choose Activity</label>
+          <select id="activity">
+            <option value="" disabled selected>Choose your option</option>
+            <option value="Astronomy">Astronomy</option>
+            <option value="Biking">Biking</option>
+            <option value="Boating">Boating</option>
+            <option value="Camping">Camping</option>
+            <option value="Climbing">Climbing</option>
+            <option value="Fishing">Fishing</option>
+            <option value="Hiking">Hiking</option>
+            <option value="Horseback Riding">Horseback Riding</option>
+            <option value="Skiing">Skiing</option>
+            <option value="Wildlife Watching">Wildlife Watching</option>
+            <option value="">All Activities</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div id="btnContainer" class="center-align">
+      <button id="searchBtn" class="btn waves-effect waves-light" type="Submit" name="action">Search
+        <i class="material-icons right">search</i>
+      </button>        
+      <button id="refreshBtn" class="btn waves-effect waves-light" type="Submit" name="action">Clear Filters
+        <i class="material-icons right">close</i>
       </button>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script src="https://kit.fontawesome.com/5392feec05.js" crossorigin="anonymous"></script>
-      <script src="assets/JS/parkResults.js"></script>
+    </div>
+      
+    <div class="row">
+      <div id="parkList">          
+      </div>
+    </div>
+
+    <button id="topBtn" class="btn waves-effect waves-light" type="Submit" name="action">Back to Top
+      <i class="material-icons right">arrow_upward</i>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>s -->
+    <script src="https://kit.fontawesome.com/5392feec05.js" crossorigin="anonymous"></script>
+    <script src="assets/JS/parkResults.js"></script>
   
   </body>
+
   <footer>
     Outdoor Adventures Published 2023
   </footer>
