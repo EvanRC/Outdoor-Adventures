@@ -1,44 +1,56 @@
-* 
-  .carousel-item h3 {
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
-    padding: 10px;
-    position: relative;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-   }
-
-
-
-
-
-
-
-
-
-{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     /* css reset */
 }
 
-
-.cstm-design {
-    padding-bottom: 10rem;
-    background-image: linear-gradient(green, white);
+body {
+    margin: 0;
+    background-color: rgb(0, 105, 148)
 }
 
-#head-logo {
-    font-size: 4rem;
-    color: brown;
+.header {
+    max-width: 100%;
+    max-height: 100%;
+    text-align: center;
+    font-family: "lobster", sans-serif ;
+    margin-top: 0;
+    background-image: linear-gradient(beige,rgb(0, 105, 148));
+    padding: 2rem;
+     
 }
 
-.nav-links li a {
-    font-size: 2rem;
-    color:  blanchedalmond;
+.header h1 {
+    margin: 0;
 }
+
+
+
+  .carousel-item h3 {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+   }
+
+   .cstm-slider {
+    max-width: 60%;
+    margin: 0 auto;
+    margin-top: 5rem;
+    border: solid 20px #8c92ac;
+    border-radius: 2rem;
+    background-image: linear-gradient(beige,rgb(0, 105, 148));
+
+   }
+
+   #back-logo {
+    margin-left: 2rem;
+    margin-bottom: 2rem;
+   }
 
 
 .card-content {

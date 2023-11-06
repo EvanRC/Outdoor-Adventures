@@ -24,7 +24,7 @@ const backToTopBtn = document.getElementById("topBtn")
     var interval = setInterval(function () {
       var instance = M.Carousel.getInstance(elems[0]);
       instance.next(); // Move to the next slide
-    }, 10000);
+    }, 4000);
   });
 
  M.AutoInit();
@@ -97,16 +97,16 @@ function fetchParkNames() {
               <span class="card-title activator grey-text text-darken-4">${park.fullName}<i class="meduim material-icons right">add</i></span>
               <p class="park-location">${parkLocation}</p>
             </div>
-            <div class="card-reveal green lighten-4">
+            <div class="card-reveal cyan lighten-4">
               <span class="card-title grey-text text-darken-4">${park.fullName}<i class="material-icons right">close</i></span>
               <div class="card-tabs">
-                <ul class="tabs tabs-fixed-width green lighten-2">
+                <ul class="tabs tabs-fixed-width cyan lighten-2">
                   <li class="tab"><a href="#desc">Description</a></li>
                   <li class="tab"><a class="active" href="#weather-info">Weather</a></li>
                   <li class="tab"><a href="#links">Park Links</a></li>
                 </ul>
               </div>
-              <div class="card-content green lighten-3">
+              <div class="card-content cyan lighten-3">
                 <div id="desc" style="display: block;"><p>${park.description}</p></div>
                 <div id="weather-info" style="display: none;"><span class="weather-info-placeholder">Loading the weather...</span></div>
                 <div id="links" style="display: none;">
