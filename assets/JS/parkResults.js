@@ -10,22 +10,22 @@ const cardContainer = document.getElementById('cardContainer')
 const refreshBtn = document.getElementById('refreshBtn')
 const backToTopBtn = document.getElementById('topBtn')
 
-document.addEventListener('DOMContentLoaded', function () {
-  var elems = document.querySelectorAll('.carousel')
-  var options = {
-    fullWidth: true, // Makes the carousel full width
-    indicators: true, // Show slide indicators (optional)
-  }
-  var instances = M.Carousel.init(elems, options)
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.carousel');
+    var options = {
+      fullWidth: true, // Makes the carousel full width
+      indicators: true, // Show slide indicators (optional)
+    };
+    var instances = M.Carousel.init(elems, options);
 
-  // Auto slide change every 3 seconds
-  var interval = setInterval(function () {
-    var instance = M.Carousel.getInstance(elems[0]);
-    instance.next(); // Move to the next slide
-  }, 10000);
-});
+    // Auto slide change every 3 seconds
+    var interval = setInterval(function () {
+      var instance = M.Carousel.getInstance(elems[0]);
+      instance.next(); // Move to the next slide
+    }, 4000);
+  });
 
-M.AutoInit();
+ M.AutoInit();
 
 
 function fetchWeatherAndForecast(lat, lon, callback) {
@@ -128,16 +128,16 @@ function buildCards(filteredParkList) {
               <span class="card-title activator grey-text text-darken-4">${park.fullName}<i class="meduim material-icons right">add</i></span>
               <p class="park-location">${parkLocation}</p>
             </div>
-            <div class="card-reveal green lighten-4 info-text">
+            <div class="card-reveal cyan lighten-4">
               <span class="card-title grey-text text-darken-4">${park.fullName}<i class="material-icons right">close</i></span>
               <div class="card-tabs">
-                <ul class="tabs tabs-fixed-width green lighten-2 ">
+                <ul class="tabs tabs-fixed-width cyan lighten-2">
                   <li class="tab"><a href="#desc">Description</a></li>
                   <li class="tab"><a class="active" href="#weather-info">Weather</a></li>
                   <li class="tab"><a href="#links">Park Links</a></li>
                 </ul>
               </div>
-              <div class="card-content green lighten-3">
+              <div class="card-content cyan lighten-3">
                 <div id="desc" style="display: block;"><p>${park.description}</p></div>
                 <div id="weather-info" style="display: none;"><span class="weather-info-placeholder">Loading the weather...</span></div>
                 <div id="links" style="display: none;">
