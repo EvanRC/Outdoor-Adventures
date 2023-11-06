@@ -1,17 +1,14 @@
-
-const opWeatherKey = "ef52a053126f1ffad0042182f7e8f385";
-const npsKey = "9fi4OHLPohhQm2w4RcbNkl8tPu6xMiqljmISBjp6";
-const parkUrl = 'https://developer.nps.gov/api/v1/parks?stateCode=CA';
-const passUrl = "https://developer.nps.gov/api/v1/feespasses?statecode=CA";
-const searchBtn = document.getElementById("searchBtn");
-const parkList = document.getElementById("parkList");
-const parkDetails = document.getElementById('parkDetails');
-const passesList = document.getElementById("passesList");
-const cardContainer = document.getElementById("cardContainer");
-const refreshBtn = document.getElementById("refreshBtn")
-const backToTopBtn = document.getElementById("topBtn")
-
-
+const opWeatherKey = "ef52a053126f1ffad0042182f7e8f385"
+const npsKey = '9fi4OHLPohhQm2w4RcbNkl8tPu6xMiqljmISBjp6'
+const parkUrl = 'https://developer.nps.gov/api/v1/parks?stateCode=CA'
+const passUrl = 'https://developer.nps.gov/api/v1/feespasses?statecode=CA'
+const searchBtn = document.getElementById('searchBtn')
+const parkList = document.getElementById('parkList')
+const parkDetails = document.getElementById('parkDetails')
+const passesList = document.getElementById('passesList')
+const cardContainer = document.getElementById('cardContainer')
+const refreshBtn = document.getElementById('refreshBtn')
+const backToTopBtn = document.getElementById('topBtn')
 
   document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.carousel');
@@ -31,30 +28,65 @@ const backToTopBtn = document.getElementById("topBtn")
  M.AutoInit();
 
 
-function fetchWeatherInfo(lat, lon, callback) {
-  const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${opWeatherKey}&units=imperial`
+function fetchWeatherAndForecast(lat, lon, callback) {
+  const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${opWeatherKey}&units=imperial`;
+  const foreCastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${opWeatherKey}&units=imperial`;
   fetch(weatherUrl)
-    .then((response) => response.json())
-    .then((data) => {
-      if (data && data.main && data.weather) {
-        const temperature = data.main.temp
-        const description = data.weather[0].description
-        const iconCode = data.weather[0].icon
-        const iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`
-        const formattedWeatherInfo = `
-      Temperature: ${temperature}°F <br>
-      Condition: ${description} <br>
-      <img src="${iconUrl}" alt="${description} icon">`
+    .then(response => response.json())
+    .then(weatherData => {
+      if (weatherData && weatherData.main && weatherData.weather) {
+        const temperature = weatherData.main.temp;
+        const description = weatherData.weather[0].description;
+        const iconCode = weatherData.weather[0].icon;
+        const iconUrl = `http://openweathermap.org/img/w/${iconCode}.png`;
 
-        callback(null, formattedWeatherInfo)
+        const formattedWeatherInfo = `
+      <strong> Today:</strong> <br>
+      Temperature: ${temperature}°F, 
+      Condition: ${description} <img src="${iconUrl}" alt="${description} icon">`;
+
+        return Promise.all([fetch(foreCastUrl), formattedWeatherInfo]);
+
       } else {
-        callback('No weather information available currently')
+        throw new Error("No weather forecast information available currently");
       }
     })
-    .catch((error) => {
-      callback(error)
+    .then(([forecastResponse, formattedWeatherInfo]) => {
+      return forecastResponse.json().then(forecastData => {
+        let forecastHTML = '<br><strong>5-day Forecast:</strong><br>';
+
+        const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+        if (forecastData && forecastData.list) {
+          for (let i = 0; i < forecastData.list.length; i += 8) {
+            const dayData = forecastData.list[i];
+            const dayTemp = dayData.main.temp;
+            const dayDescription = dayData.weather[0].description;
+            const dayIconCode = dayData.weather[0].icon;
+            const dayIconUrl = `https://openweathermap.org/img/w/${dayIconCode}.png`; // Use HTTPS
+
+            const forecastDate = new Date(dayData.dt * 1000);
+
+            const dayOfWeek = daysOfWeek[forecastDate.getDay()];
+
+            forecastHTML += `
+     <strong>${dayOfWeek}:</strong>&nbsp;&nbsp;
+      Temperature: ${dayTemp}°F, Conditions: ${dayDescription} <img src="${dayIconUrl}" alt="${dayDescription} icon"><br>`;
+          }
+        }
+
+        // Assuming 'formattedWeatherInfo' is defined in an outer scope and accessible here
+        const combinedWeatherInfo = formattedWeatherInfo + forecastHTML;
+        callback(null, combinedWeatherInfo); // Make the callback with the result
+      });
     })
+    .catch(error => {
+      callback(error); // Make sure to pass the error to the callback
+    });
+
 }
+
+
 
 function buildCards(filteredParkList) {
   const selectedActivity = document.getElementById('activity').value
@@ -119,18 +151,19 @@ function buildCards(filteredParkList) {
           </div>
         `
 
-      const lat = park.latitude
-      const lon = park.longitude
-      fetchWeatherInfo(lat, lon, (error, weatherInfo) => {
+      const lat = park.latitude;
+      const lon = park.longitude;
+      fetchWeatherAndForecast(lat, lon, (error, weatherInfo) => {
         if (error) {
-          console.error('Failed to fetch the weather:', error)
+          console.error('Failed to fetch the weather:', error);
         } else {
-          const weatherDiv = parkCard.querySelector('.weather-info-placeholder')
+          const weatherDiv = parkCard.querySelector('.weather-info-placeholder');
           if (weatherDiv) {
-            weatherDiv.innerHTML = weatherInfo
+            weatherDiv.innerHTML = weatherInfo;
           }
         }
       })
+
 
       const cardTitle = parkCard.querySelector('.card-title.activator')
       const cardReveal = parkCard.querySelector('.card-reveal')
@@ -234,9 +267,9 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
   var a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(lat1 * (Math.PI / 180)) *
-      Math.cos(lat2 * (Math.PI / 180)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2)
+    Math.cos(lat2 * (Math.PI / 180)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2)
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
   var distance = R * c
   return distance
