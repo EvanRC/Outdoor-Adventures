@@ -6,10 +6,10 @@
 }
 
 body {
-    margin: 0;
     background-color: rgb(0, 105, 148)
+    /* edits background color for entire body */
 }
-
+ 
 .header {
     max-width: 100%;
     max-height: 100%;
@@ -18,11 +18,13 @@ body {
     margin-top: 0;
     background-image: linear-gradient(beige,rgb(0, 105, 148));
     padding: 2rem;
+    /* adds styling to main header at the top of the page */
      
 }
 
 .header h1 {
     margin: 0;
+    /* edits the margin for the h1 within the header */
 }
 
 
@@ -35,6 +37,7 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
+    /* base css for carousel slider */
    }
 
    .cstm-slider {
@@ -45,47 +48,38 @@ body {
     border: solid 20px #8c92ac;
     border-radius: 2rem;
     background-image: linear-gradient(beige,rgb(0, 105, 148));
+    /* more specific styling to carousel */
 
-   }
-
-   #back-logo {
-    margin-left: 2rem;
-    margin-bottom: 2rem;
    }
 
    input[type="radio"].with-gap:checked + span::after {
     background-color: whitesmoke;
     border-color: aquamarine;
-   
+   /*adds color to distance buttons  */
   }
 
-  .with-gap {
-    background-color:cyan
-  }
 
   .vertical-radio-buttons label span {
     color: whitesmoke;
+    /* edits text color search area */
   }
 
  .s-text {
   color: whitesmoke;
   font-size: 2rem;
+  /* edits text color for search area */
  }
 
  #f-text {
   color: whitesmoke;
   font-size: 1rem;
+  /* edits text color within search area */
  }
 
  .select-dropdown {
   color: whitesmoke;
+  /* edits text color within dropdown search box */
  }
-
-.cstm-design {
-  padding-bottom: 10rem;
-  background-image: linear-gradient(cyan, white);
-}
-
 
 .card-content {
   background-color: transparent;
@@ -98,19 +92,23 @@ body {
 
 .activity-chooser {
   margin-left: 2%;
+  /* moves activity chooser to right */
 }
 
 select {
   margin: 2%;
   width: 30%;
+  /* edits position and size of activity dropdown */
 }
 
 footer {
   text-align: center;
+  /* centers text for footer */
 }
 
 .tabs .tab a {
   color: black;
+  /* changes tabs text to black on park cards */
 }
 
 
@@ -118,10 +116,7 @@ footer {
   color: rgb(83, 83, 83);
 }
 
-.brand-logo {
-  margin: 3%;
-}
-
 .input-field {
   margin-top: 25%;
+  /* moves distance buutons down */
 }
