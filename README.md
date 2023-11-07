@@ -20,7 +20,7 @@ N/A
 * NPS API
 * Google Maps API
 * Open Weather API
-* Materialized
+* Materialize
 #
 ## Description
 #### This is a website that allows you to search for national parks near you based on what activities you're interested in.
