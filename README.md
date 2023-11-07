@@ -33,6 +33,6 @@ Please refer to license in the repo.
 
 
 ## References
-https://materializecss.com/
-https://www.nps.gov/subjects/developer/api-documentation.htm
-https://openweathermap.org/api
+[materialize](https://materializecss.com/)
+[NPS](https://www.nps.gov/subjects/developer/api-documentation.htm)
+[NPS](https://openweathermap.org/api)
