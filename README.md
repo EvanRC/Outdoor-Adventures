@@ -2,8 +2,8 @@
 
 ## Developers
 
-#### [Evan Carlson](https://github.com/EvanRC)
 #### [Clayton Hensley](https://github.com/chensley8)
+#### [Evan Carlson](https://github.com/EvanRC)
 #### [John Curtis](https://github.com/t4-k1/)
 #### [Nicole Neary](https://github.com/nicolemneary)
 #
