@@ -33,7 +33,8 @@ https://evanrc.github.io/Outdoor-Adventures/
 
 
 ## Code Screenshot:
-![image](https://github.com/EvanRC/Outdoor-Adventures/assets/124648885/8655af5e-79bc-4aa1-94f7-389586799a4e)
+![image](https://github.com/EvanRC/Outdoor-Adventures/assets/124648885/3e99253f-7373-4a95-83b8-34eba7a35ee1)
+
 
 
 ## References
