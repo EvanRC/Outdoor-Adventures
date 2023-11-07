@@ -34,5 +34,7 @@ Please refer to license in the repo.
 
 ## References
 [materialize](https://materializecss.com/)
+#
 [NPS](https://www.nps.gov/subjects/developer/api-documentation.htm)
-[NPS](https://openweathermap.org/api)
+#
+[OpenWeather](https://openweathermap.org/api)
