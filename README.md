@@ -1,5 +1,6 @@
+![Outdoor_Adventurers](https://github.com/EvanRC/Outdoor-Adventures/assets/124648885/c083f247-e1fc-4df1-9fbb-c8785d8a01f7)
 
-## Developers![Outdoor_Adventurers](https://github.com/EvanRC/Outdoor-Adventures/assets/124648885/c083f247-e1fc-4df1-9fbb-c8785d8a01f7)
+## Developers
 
 #### [Evan Carlson](https://github.com/EvanRC)
 #### [Clayton Hensley](https://github.com/chensley8)
