@@ -32,6 +32,10 @@ Please refer to license in the repo.
 https://evanrc.github.io/Outdoor-Adventures/
 
 
+## Code Screenshot:
+![image](https://github.com/EvanRC/Outdoor-Adventures/assets/124648885/8655af5e-79bc-4aa1-94f7-389586799a4e)
+
+
 ## References
 [materialize](https://materializecss.com/)
 #
