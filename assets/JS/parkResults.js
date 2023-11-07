@@ -12,6 +12,7 @@ const passesList = document.getElementById('passesList')
 const cardContainer = document.getElementById('cardContainer')
 const refreshBtn = document.getElementById('refreshBtn')
 const backToTopBtn = document.getElementById('topBtn')
+const previousSearchBtn = document.getElementById('previousBtn')
 
 // Initialize the carousel component when the document loads
 document.addEventListener('DOMContentLoaded', function () {
@@ -395,4 +396,39 @@ searchBtn.addEventListener('click', fetchParkNames)
 // Event listener to refresh the page when the refresh button is clicked
 refreshBtn.addEventListener('click', function () {
   location.reload()
+})
+
+function saveSearchCriteria(location, radius, activity) {
+  const searchCriteria = {
+    location: location,
+    radius: radius,
+  };
+
+  localStorage.setItem('searchCriteria', JSON.stringify(searchCriteria));
+}
+
+searchBtn.addEventListener('click', function() {
+  const userLocationInput = document.getElementById('find_parks').value;
+  const selectedRadius = getSelectedRadius();
+
+  saveSearchCriteria(userLocationInput, selectedRadius);
+
+  fetchParkNames();
+})
+
+
+previousSearchBtn.addEventListener('click', function () {
+  const savedSearchCriteria = JSON.parse(localStorage.getItem('searchCriteria'));
+
+  if (savedSearchCriteria) {
+    document.getElementById('find_parks').value = savedSearchCriteria.location;
+
+    const selectedRadioBtn = document.querySelector(`input[name="group1"][value="${savedSearchCriteria.radius}"]`);
+    if (selectedRadioBtn) {
+      selectedRadioBtn.checked = true;
+    }
+
+  
+    fetchParkNames();
+  }
 })
