@@ -321,50 +321,62 @@ function calculateDistance(lat1, lon1, lat2, lon2) {
 }
 // Function to filter parks within a certain radius from user's location
 function searchParksWithinRadius(allParks) {
-  var userLocationInput = document.getElementById('find_parks').value // Retrieve the user's location input from the input field with the ID 'find_parks'.
-  var selectedRadius = getSelectedRadius()
+  var userLocationInput = document.getElementById('find_parks').value // Get the user's location input from an input field.
+  var selectedRadius = getSelectedRadius() // Get the selected search radius.
+  var errorMessageElement = document.getElementById('error-message') // Get the element where error messages will be displayed.
+
+  // Clear any existing error messages
+  errorMessageElement.innerHTML = ''
 
   if (userLocationInput !== '' && userLocationInput !== null) {
-    // Check if the user has entered a location. If not, display all parks.
     if (!selectedRadius) {
-      // If no radius is selected, display all parks without filtering by radius.
+      // If no search radius is selected, display all parks and exit the function.
       buildCards(allParks)
       return
     }
-    geocodeLocation(userLocationInput) // Call the geocodeLocation function to convert the user's location input into geographic coordinates.
-      .then(function (userCoordinates) {
-        if (!userCoordinates) {
-          alert('Location not found. Please enter a valid city or zip code.') // If geocoding the location fails, notify the user.
-        } else {
-          searchPerformed = true
-          var filteredParks = allParks.filter(function (park) {
-            // Filter the list of all parks to find those within the selected radius of the user's location.
-            var parkCoordinates =
-              park.latitude && park.longitude
-                ? { lat: park.latitude, lng: park.longitude }
-                : null
 
-            if (
-              // If the park has coordinates and is within the selected radius of the user's location, include it in the filtered list.
-              parkCoordinates &&
-              calculateDistance(
-                userCoordinates.lat,
-                userCoordinates.lng,
-                parkCoordinates.lat,
-                parkCoordinates.lng
-              ) <= selectedRadius
-            ) {
-              return true
-            }
-            return false // Otherwise, do not include the park in the filtered list.
-          })
-          buildCards(filteredParks) // Use the filtered list of parks to build the UI cards that display park information.
+    // Geocode the user's location input to obtain geographic coordinates.
+    geocodeLocation(userLocationInput)
+      .then(function (userCoordinates) {
+        searchPerformed = true
+        // Filter the list of all parks to find those within the selected radius of the user's location.
+        var filteredParks = allParks.filter(function (park) {
+          var parkCoordinates =
+            park.latitude && park.longitude
+              ? { lat: park.latitude, lng: park.longitude }
+              : null
+
+          if (
+            // If the park has coordinates and is within the selected radius of the user's location, include it in the filtered list.
+            parkCoordinates &&
+            calculateDistance(
+              userCoordinates.lat,
+              userCoordinates.lng,
+              parkCoordinates.lat,
+              parkCoordinates.lng
+            ) <= selectedRadius
+          ) {
+            return true
+          }
+          return false // Otherwise, do not include the park in the filtered list.
+        })
+
+        if (filteredParks.length === 0) {
+          // If no parks are found within the selected radius, display an error message.
+          errorMessageElement.textContent =
+            'No parks found within the selected radius.'
+        } else {
+          // Build UI cards to display the filtered parks.
+          buildCards(filteredParks)
         }
       })
-      .catch(function (error) {
-        console.error('Error searching parks within radius:', error) // Catch any errors during the geocoding process or filtering and log them to the console.
+      .catch(function () {
+        // If an error occurs during the geocoding process or filtering, display an error message.
+        errorMessageElement.textContent =
+          'Error searching parks. Check your location and try again.'
       })
   } else {
+    // If the user hasn't entered a location, display all parks.
     buildCards(allParks)
   }
 }
