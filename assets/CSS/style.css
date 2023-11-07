@@ -59,11 +59,6 @@ input[type='radio'].with-gap:checked + span::after {
   /* edits text color search area */
 }
 
-#search-history {
-  color: whitesmoke;
-  /* edits text color search area */
-}
-
 .s-text {
   color: whitesmoke;
   font-size: 2rem;
