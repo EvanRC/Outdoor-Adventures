@@ -114,3 +114,8 @@ footer {
   margin-top: 25%;
   /* moves distance buutons down */
 }
+
+#error-message {
+  color: rgb(206, 141, 141);
+  font-size: 1.5rem;
+}
